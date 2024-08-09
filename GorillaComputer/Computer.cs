@@ -29,7 +29,7 @@ namespace GorillaComputer
 
         public Sprite Bar1, Bar2, Bar3, Bar4;
 
-        private float Ping, Timer, IdelTime = 35;
+        public float Ping, Timer, IdelTime = 35;
 
         private bool isSafeAccount, isTimerActive;
 
@@ -85,7 +85,6 @@ namespace GorillaComputer
             Bar2 = await AssetTool.LoadAsset<Sprite>("Bar2");
             Bar3 = await AssetTool.LoadAsset<Sprite>("Bar3");
             Bar4 = await AssetTool.LoadAsset<Sprite>("Bar4");
-            IdelTime = 60f;
             enabled = true;
         }
 
@@ -131,9 +130,9 @@ namespace GorillaComputer
             }
             if (isTimerActive)
             {
-                IdelTime -= Time.deltaTime;
+                Timer -= Time.deltaTime;
 
-                if (IdelTime <= 0)
+                if (Timer <= 0)
                 {
                     isTimerActive = false;
                     Timer = IdelTime;

@@ -263,7 +263,7 @@ namespace GorillaComputer
 
                 return;
             }
-
+            CurrentComputer.Timer = CurrentComputer.IdelTime;
             CurrentFunction.OnKeyPressed(pressedBind);
         }
 
