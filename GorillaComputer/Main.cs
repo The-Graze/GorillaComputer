@@ -18,10 +18,11 @@ using System.Reflection;
 
 namespace GorillaComputer
 {
-    internal class Main : MonoBehaviourPunCallbacks, IFunctionDatabase
+    class Main : MonoBehaviourPunCallbacks, IFunctionDatabase
     {
+        public static Main Instance;
         public List<ComputerFunction> FunctionRegistry { get; set; }
-        public ComputerFunction CurrentFunction { get; set; }
+        public ComputerFunction CurrentFunction {get; set;}
         public int CurrentFunctionIndex { get; set; }
         public LazyFunctionOverride FunctionOverride { get; set; }
 
@@ -117,7 +118,6 @@ namespace GorillaComputer
             FunctionRegistry = [];
             CurrentFunction = null;
             FunctionOverride = null;
-
             AddFunction(new RoomFunction());
             AddFunction(new NameFunction());
             AddFunction(new ColourFunction());
@@ -179,6 +179,7 @@ namespace GorillaComputer
             };
 
             enabled = true;
+            Instance = this;
             ComputerTool.Computer.enabled = false;
         }
 

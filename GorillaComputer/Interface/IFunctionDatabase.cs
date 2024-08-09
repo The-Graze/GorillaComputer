@@ -15,6 +15,7 @@ namespace GorillaComputer.Interface
         /// </summary>
         public ComputerFunction CurrentFunction { get; set; }
 
+
         /// <summary>
         /// any overrides that should be considered for altering the computer display
         /// </summary>

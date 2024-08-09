@@ -29,14 +29,12 @@ namespace GorillaComputer
 
         public Sprite Bar1, Bar2, Bar3, Bar4;
 
-        private float Ping;
+        private float Ping, Timer, IdelTime = 35;
 
-        private bool isSafeAccount;
+        private bool isSafeAccount, isTimerActive;
 
         private int? _currentSelectionIndex = null;
-        private float _textGlowValue = 0;
-
-        private float _lastAutoRefresh;
+        private float _textGlowValue = 0, _lastAutoRefresh, _TimeToIdel;
 
         public void Awake()
         {
@@ -87,7 +85,7 @@ namespace GorillaComputer
             Bar2 = await AssetTool.LoadAsset<Sprite>("Bar2");
             Bar3 = await AssetTool.LoadAsset<Sprite>("Bar3");
             Bar4 = await AssetTool.LoadAsset<Sprite>("Bar4");
-
+            IdelTime = 60f;
             enabled = true;
         }
 
@@ -131,7 +129,17 @@ namespace GorillaComputer
             {
                 UpdateContent(Database.CurrentFunction.GetFunctionContent());
             }
+            if (isTimerActive)
+            {
+                IdelTime -= Time.deltaTime;
 
+                if (IdelTime <= 0)
+                {
+                    isTimerActive = false;
+                    Timer = IdelTime;
+                    UpdateStartup(true);
+                }
+            }
             UpdateMainHeading();
         }
 
@@ -183,6 +191,8 @@ namespace GorillaComputer
         public void UpdateStartup(bool startup)
         {
             UseStartupMenu = startup;
+            isTimerActive = !startup;
+            GorillaComputer.Main.Instance.InStartupMenu = startup;
             ActivateMenuObjects(UseStartupMenu);
         }
 
